@@ -80,7 +80,9 @@ export default function Signup() {
                         position: 'top-right',
                         autoClose: 2000
                     })
-                    window.location.href = '/auth/signin'
+                    if (typeof window !== 'undefined') {
+                        window.location.href = '/auth/signin'
+                    }
                     setFormData(
                         {
                             name: '',

@@ -225,7 +225,10 @@ const SelectSeatPage = () => {
                 if (response.ok) {
                     toast.success('Booking Successful')
                     console.log(response)
-                    window.location.href = "/profile"
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "/profile"
+                    }
+
                 }
                 else {
                     console.log(response)

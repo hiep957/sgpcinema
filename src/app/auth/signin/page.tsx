@@ -114,8 +114,9 @@ export default function Signin() {
                     //     position: 'top-right',
                     //     autoClose: 2000
                     // })
-
-                    window.location.href = "/"
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "/"
+                    }
 
 
                 } else {
@@ -127,7 +128,9 @@ export default function Signin() {
                 }
             })
             .catch((error) => {
-                window.location.href = "/"
+                if (typeof window !== 'undefined') {
+                    window.location.href = "/"
+                }
             })
     };
 

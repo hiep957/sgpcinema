@@ -50,14 +50,17 @@ const Navbar = () => {
             .then((response) => {
                 console.log(response)
                 if (response.ok) {
-                    window.location.href = "/auth/signin"
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "/auth/signin"
+                    }
                 }
 
             })
             .catch((error) => {
                 console.log(error)
-                window.location.href = "/auth/signin"
-
+                if (typeof window !== 'undefined') {
+                    window.location.href = "/auth/signin"
+                }
             })
     }
 

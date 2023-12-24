@@ -76,7 +76,9 @@ const LocationPopup = (
                     //     type: 'success'
                     // })
                     setShowLocationPopup(false)
-                    window.location.reload()
+                    if (typeof window !== 'undefined') {
+                        window.location.reload()
+                    }
                 }
             })
             .catch((err) => {

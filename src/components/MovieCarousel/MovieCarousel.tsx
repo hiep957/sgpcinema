@@ -29,7 +29,10 @@ const MovieCarousel = () => {
                     setUser(response.data)
                 }
                 else {
-                    window.location.href = "/auth/signin"
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "/auth/signin"
+                    }
+
                 }
             })
             .catch((error) => {

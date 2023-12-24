@@ -9,9 +9,19 @@ import 'swiper/css/pagination';
 
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 import Image from 'next/image';
-
-const width = window.innerWidth;
-const height = window.innerHeight;
+let width = 700;
+let height = 800;
+if (typeof window !== 'undefined') {
+    // Truy cập window chỉ khi ở môi trường client-side
+    width = window.innerWidth;
+    height = window.innerHeight;
+} else {
+    // Xử lý khi không có window (môi trường server-side)
+    // Đây là nơi bạn có thể thiết lập giá trị mặc định hoặc xử lý khác
+    // Ví dụ:
+    width = 800; // Giá trị mặc định cho width khi không có window
+    height = 600; // Giá trị mặc định cho height khi không có window
+}
 const HomeSlider = () => {
 
     const [banners, setBanners] = useState([
