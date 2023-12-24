@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React from 'react'
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'; // Import CSS for styling
 import './BuyTicketsPage.css'
@@ -9,16 +9,13 @@ import { usePathname, useParams } from 'next/navigation'
 const BuyTicketsPage = () => {
     const pathname = usePathname()
     const params = useParams()
+    const [selectedDate, setSelectedDate] = React.useState<any>(new Date())
     const { movieid, cityname } = params
     const [movie, setMovie] = React.useState<any>(null)
     const [theatres, setTheatres] = React.useState<any>(null)
     // const [selectedDate, setSelectedDate] = React.useState<any>(null)
     console.log(movieid)
-    const [selectedDate, setSelectedDate] = useState(() => {
-        const date = new Date();
-        date.setDate(date.getDate()); // Thiết lập ngày sau 100 ngày từ ngày hiện tại
-        return date;
-    });
+
 
 
     const getMovie = async () => {
@@ -92,9 +89,9 @@ const BuyTicketsPage = () => {
     }, [])
 
     React.useEffect(() => {
-        const formattedDate = selectedDate.toISOString().split('T')[0]; // Chuyển đổi Date thành chuỗi 'YYYY-MM-DD'
-        getTheatres(formattedDate);
-    }, [selectedDate]);
+        getTheatres(selectedDate)
+    }, [selectedDate])
+
 
     // const movie = {
     //     moviename: 'Jawan',
@@ -132,7 +129,7 @@ const BuyTicketsPage = () => {
                         </div>
                         <DatePicker
                             selected={selectedDate}
-                            onChange={(date) => date && setSelectedDate(date)}
+                            onChange={(date) => setSelectedDate(date)}
                             dateFormat="MMMM d, yyyy"
                         />
                     </div>
