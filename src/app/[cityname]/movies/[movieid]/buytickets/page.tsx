@@ -10,7 +10,7 @@ const BuyTicketsPage = () => {
     const pathname = usePathname()
     const params = useParams()
     const [selectedDate, setSelectedDate] = React.useState<any>(new Date())
-    const { movieid, cityname } = params
+    const { cityname, movieid } = params
     const [movie, setMovie] = React.useState<any>(null)
     const [theatres, setTheatres] = React.useState<any>(null)
     // const [selectedDate, setSelectedDate] = React.useState<any>(null)
