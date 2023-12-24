@@ -1,6 +1,7 @@
 "use client"
-import React from 'react'
-import DatePicker from "react-horizontal-datepicker";
+import React, { useState } from 'react';
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css'; // Import CSS for styling
 import './BuyTicketsPage.css'
 import Link from 'next/link';
 import { usePathname, useParams } from 'next/navigation'
@@ -8,12 +9,17 @@ import { usePathname, useParams } from 'next/navigation'
 const BuyTicketsPage = () => {
     const pathname = usePathname()
     const params = useParams()
-    const [selectedDate, setSelectedDate] = React.useState<any>(new Date())
     const { movieid, cityname } = params
     const [movie, setMovie] = React.useState<any>(null)
     const [theatres, setTheatres] = React.useState<any>(null)
     // const [selectedDate, setSelectedDate] = React.useState<any>(null)
     console.log(movieid)
+    const [selectedDate, setSelectedDate] = useState(() => {
+        const date = new Date();
+        date.setDate(date.getDate()); // Thiết lập ngày sau 100 ngày từ ngày hiện tại
+        return date;
+    });
+
 
     const getMovie = async () => {
         fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/movie/movies/${movieid}`, {
@@ -86,9 +92,9 @@ const BuyTicketsPage = () => {
     }, [])
 
     React.useEffect(() => {
-        getTheatres(selectedDate)
-    }, [selectedDate])
-
+        const formattedDate = selectedDate.toISOString().split('T')[0]; // Chuyển đổi Date thành chuỗi 'YYYY-MM-DD'
+        getTheatres(formattedDate);
+    }, [selectedDate]);
 
     // const movie = {
     //     moviename: 'Jawan',
@@ -124,18 +130,10 @@ const BuyTicketsPage = () => {
                             <h1>{movie.title} - {movie.language}</h1>
                             <h3>{movie.genre.join(",")}</h3>
                         </div>
-                        <DatePicker getSelectedDay={
-                            (date: any) => {
-                                console.log(date)
-                                setSelectedDate(date)
-                            }
-                        }
-                            endDate={100}
-                            selectDate={
-                                selectedDate
-                            }
-                            labelFormat={"MMMM"}
-                            color={"rgb(248, 68, 100)"}
+                        <DatePicker
+                            selected={selectedDate}
+                            onChange={(date) => date && setSelectedDate(date)}
+                            dateFormat="MMMM d, yyyy"
                         />
                     </div>
 
